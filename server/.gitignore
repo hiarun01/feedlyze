@@ -44,3 +44,9 @@ Thumbs.db
 tmp/
 temp/
 .cache/
+
+/src/generated/prisma
+
+/generated/prisma
+
+/generated/prisma

@@ -1,9 +1,3 @@
-export const login = (req, res) => {
-  res.send("Login endpoint");
-};
-export const register = (req, res) => {
-  res.send("Register endpoint");
-};
-export const logout = (req, res) => {
-  res.send("Logout endpoint");
-};
+export const register = async (req, res) => {};
+export const login = async (req, res) => {};
+export const logout = async (req, res) => {};
