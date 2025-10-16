@@ -9,7 +9,10 @@ import ActionSection from "./ActionSection";
 
 const Hero = () => {
   return (
-    <section id="home" className="min-h-screen flex py-10 bg-white flex-col">
+    <section
+      id="home"
+      className="min-h-screen flex py-10 lg:py-20 bg-white flex-col"
+    >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Main Heading */}
         <h1 className="text-5xl md:text-6xl font-bold text-black mb-6 leading-tight">
