@@ -14,20 +14,20 @@ export default function Header() {
           {/* Logo */}
           <div className="flex items-center gap-3">
             <Link href="/" className="inline-flex items-center gap-3">
-              <span className="font-semibold ">Feedlyze</span>
+              <span className="font-bold">Feedlyze</span>
             </Link>
           </div>
 
           <div className="hidden md:flex items-center gap-5">
             {/* desktop nav */}
             <nav className="hidden md:flex items-center gap-8">
-              <Link href="/" className="hover:underline">
+              <Link href="/" className="hover:underline font-medium">
                 Home
               </Link>
-              <Link href="/docs" className="hover:underline">
+              <Link href="/docs" className="hover:underline font-medium">
                 Docs
               </Link>
-              <Link href="/project" className="hover:underline">
+              <Link href="/project" className="hover:underline font-medium">
                 Projects
               </Link>
             </nav>
