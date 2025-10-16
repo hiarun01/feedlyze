@@ -2,10 +2,14 @@
 
 import Link from "next/dist/client/link";
 import {Button} from "./ui/button";
+import FeaturesSection from "./FeaturesSection";
+import HowItWorks from "./HowItWorks";
+import {FAQSection} from "./FAQSection";
+import ActionSection from "./ActionSection";
 
 const Hero = () => {
   return (
-    <section id="home" className="min-h-screen flex py-10 bg-white">
+    <section id="home" className="min-h-screen flex py-10 bg-white flex-col">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Main Heading */}
         <h1 className="text-5xl md:text-6xl font-bold text-black mb-6 leading-tight">
@@ -32,6 +36,14 @@ const Hero = () => {
           </Link>
         </div>
       </div>
+      {/* Features Section */}
+      <FeaturesSection />
+      {/* How It Works Section */}
+      <HowItWorks />
+      {/* FAQ Section */}
+      <FAQSection />
+      {/* Final Call-to-Action */}
+      <ActionSection />
     </section>
   );
 };
