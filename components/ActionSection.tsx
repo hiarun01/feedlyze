@@ -20,7 +20,7 @@ const ActionSection = () => {
         <Link href="/docs" className="ml-4">
           <Button
             variant="outline"
-            className="py-5 px-10 flex items-center gap-2 bg-white"
+            className="py-5 px-5 flex items-center gap-2 bg-white"
           >
             Read Docs
           </Button>
