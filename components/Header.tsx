@@ -2,6 +2,7 @@
 
 import React, {useState} from "react";
 import Link from "next/link";
+
 import {Button} from "./ui/button";
 
 export default function Header() {
@@ -21,15 +22,9 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-5">
             {/* desktop nav */}
             <nav className="hidden md:flex items-center gap-8">
-              <Link href="/" className="hover:underline font-medium">
-                Home
-              </Link>
-              <Link href="/docs" className="hover:underline font-medium">
-                Docs
-              </Link>
-              <Link href="/project" className="hover:underline font-medium">
-                Projects
-              </Link>
+              <Link href="/">Home</Link>
+              <Link href="/docs">Docs</Link>
+              <Link href="/project">Projects</Link>
             </nav>
             {/* Desktop CTAs */}
             <Link href="/login">

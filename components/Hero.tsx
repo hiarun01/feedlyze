@@ -6,14 +6,21 @@ import FeaturesSection from "./FeaturesSection";
 import HowItWorks from "./HowItWorks";
 import {FAQSection} from "./FAQSection";
 import ActionSection from "./ActionSection";
+import {Sparkles} from "lucide-react";
 
 const Hero = () => {
   return (
-    <section
-      id="home"
-      className="min-h-screen flex py-10 lg:py-20 bg-white flex-col"
-    >
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <section id="home" className="min-h-screen flex  bg-white flex-col">
+      <div className=" max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-10 z-10 relative">
+        <div className="flex flex-col items-center max-w-4xl mx-auto mt-12 sm:mt-20">
+          <div className="flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-[#E7E9EC] text-slate-900 text-sm font-medium">
+            <Sparkles className="w-4 h-4" />
+            <span className="text-sm font-medium">
+              discover genuine feedback
+            </span>
+          </div>
+        </div>
+
         {/* Main Heading */}
         <h1 className="text-5xl md:text-6xl font-bold text-black mb-6 leading-tight">
           Embed. Listen. Improve.
@@ -30,12 +37,12 @@ const Hero = () => {
         {/* Call-to-Action Button */}
         <div className="flex justify-center space-x-4">
           <Link href="/register">
-            <Button variant="outline" className=" py-5 px-10">
-              Get Started
-            </Button>
+            <Button className=" py-5 px-10">Get Started</Button>
           </Link>
           <Link href="/docs">
-            <Button className=" py-5 px-10">Docs</Button>
+            <Button variant="outline" className=" py-5 px-10">
+              Docs
+            </Button>
           </Link>
         </div>
       </div>
