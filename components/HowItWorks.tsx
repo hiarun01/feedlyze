@@ -30,7 +30,7 @@ const HowItWorks = () => {
             key={index}
             className="border p-4 rounded-lg shadow flex flex-col items-center text-center"
           >
-            <div className="w-10 h-10 flex items-center justify-center bg-black text-white rounded-full mb-4 font-extrabold">
+            <div className="w-10 h-10 flex items-center justify-center bg-black text-white dark:bg-white dark:text-black rounded-full mb-4 font-extrabold">
               {step.step}
             </div>
             <h3 className="font-bold">{step.title}</h3>

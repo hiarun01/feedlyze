@@ -4,12 +4,20 @@ import React, {useState} from "react";
 import Link from "next/link";
 
 import {Button} from "./ui/button";
+import {useTheme} from "next-themes";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const {setTheme} = useTheme();
 
   return (
-    <header className="w-full  text-black bg-white shadow-2xs fixed top-0 z-50">
+    <header className="w-full shadow-2xs fixed top-0 z-50 bg-white dark:bg-black">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-15">
           {/* Logo */}
@@ -33,6 +41,27 @@ export default function Header() {
             <Link href="/register">
               <Button>Sign up</Button>
             </Link>
+
+            {/* theme toggle */}
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="px-3 py-2">
+                  Theme
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem onClick={() => setTheme("light")}>
+                  Light
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setTheme("dark")}>
+                  Dark
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setTheme("system")}>
+                  System
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           {/* Mobile menu button */}
@@ -81,22 +110,17 @@ export default function Header() {
       {/* Mobile menu panel */}
       <div
         id="mobile-menu"
-        className={`${
-          open ? "block" : "hidden"
-        } md:hidden  border-t border-white/10`}
+        className={`${open ? "block" : "hidden"} md:hidden  border-t `}
       >
         <div className="px-4 pt-4 pb-6 space-y-4">
           <nav className="flex flex-col gap-3">
-            <Link href="/" className="px-3 py-2 rounded hover:bg-gray-600">
+            <Link href="/" className="px-3 py-2 rounded ">
               Home
             </Link>
-            <Link href="/docs" className="px-3 py-2 rounded hover:bg-gray-600">
+            <Link href="/docs" className="px-3 py-2 rounded ">
               Docs
             </Link>
-            <Link
-              href="/project"
-              className="px-3 py-2 rounded hover:bg-gray-600"
-            >
+            <Link href="/project" className="px-3 py-2 rounded ">
               Project
             </Link>
           </nav>
@@ -110,11 +134,12 @@ export default function Header() {
             </Link>
             <Link
               href="/register"
-              className="px-3 py-2 bg-white text-black rounded text-center"
+              className="px-3 py-2 text-black rounded text-center"
             >
               <Button className="w-full">Sign up</Button>
             </Link>
           </div>
+          {/* theme toggleq */}
         </div>
       </div>
     </header>

@@ -7,11 +7,11 @@ const Login = () => {
   return (
     <>
       <section className="h-screen flex flex-col justify-center px-5">
-        <div className="mx-auto border-1 shadow-2xs rounded-2xl w-full max-w-lg bg-white">
-          <form className="bg-white px-10 py-5">
+        <div className="mx-auto border-1 shadow-2xs rounded-2xl w-full max-w-lg">
+          <form className=" px-10 py-5">
             {/* Email */}
             <div className="mb-5 w-full">
-              <Label className="block text-gray-700 mb-2">Your Email</Label>
+              <Label className="block mb-2">Your Email</Label>
               <Input
                 type="text"
                 name="email"
@@ -21,7 +21,7 @@ const Login = () => {
             </div>
 
             <div className="mb-5">
-              <Label className="block text-gray-700 mb-2">Password</Label>
+              <Label className="block  mb-2">Password</Label>
               <Input
                 name="password"
                 type="password"
@@ -33,7 +33,7 @@ const Login = () => {
             <div className="mb-3 items-center gap-2">
               <button
                 type="submit"
-                className="w-full bg-black text-white py-2 rounded-lg font-medium hover:bg-gray-800 transition-colors"
+                className="w-full dark:bg-white dark:text-black bg-black dark:hover:bg-gray-200 text-white py-2 rounded-lg font-medium hover:bg-gray-800 transition-colors"
               >
                 {isLoading ? "Please Wait..." : "Login"}
               </button>
