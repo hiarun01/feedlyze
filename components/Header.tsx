@@ -16,6 +16,14 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const {setTheme} = useTheme();
 
+  const navLinks: Array<{name: string; href: string}> = [
+    {name: "Home", href: "/"},
+    {name: "Docs", href: "/docs"},
+    {name: "Dashboard", href: "/dashboard"},
+  ];
+
+  const user = true;
+
   return (
     <header className="w-full shadow-2xs fixed top-0 z-50 bg-white dark:bg-black">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -30,9 +38,12 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-5">
             {/* desktop nav */}
             <nav className="hidden md:flex items-center gap-8">
-              <Link href="/">Home</Link>
-              <Link href="/docs">Docs</Link>
-              <Link href="/project">Projects</Link>
+              {user &&
+                navLinks.map((link, i) => (
+                  <Link key={i} href={link.href}>
+                    {link.name}
+                  </Link>
+                ))}
             </nav>
             {/* Desktop CTAs */}
             <Link href="/login">
@@ -47,7 +58,7 @@ export default function Header() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="px-3 py-2">
-                  Theme
+                  theme
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
@@ -71,7 +82,7 @@ export default function Header() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="px-3 py-2">
-                  Theme
+                  theme
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
@@ -135,15 +146,12 @@ export default function Header() {
       >
         <div className="px-4 pt-4 pb-6 space-y-4">
           <nav className="flex flex-col gap-3">
-            <Link href="/" className="px-3 py-2 rounded ">
-              Home
-            </Link>
-            <Link href="/docs" className="px-3 py-2 rounded ">
-              Docs
-            </Link>
-            <Link href="/project" className="px-3 py-2 rounded ">
-              Project
-            </Link>
+            {user &&
+              navLinks.map((link, i) => (
+                <Link key={i} href={link.href}>
+                  {link.name}
+                </Link>
+              ))}
           </nav>
 
           <div className="pt-3 border-t border-white/10 flex flex-col gap-3">
