@@ -4,25 +4,20 @@ import React, {useState} from "react";
 import Link from "next/link";
 
 import {Button} from "./ui/button";
-import {useTheme} from "next-themes";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+import {useAuth} from "@/contexts/AuthContext";
+
+import {ThemeToggle} from "./ThemeToggle";
+import {LogOutIcon} from "lucide-react";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const {setTheme} = useTheme();
+  const {user, logout} = useAuth();
 
   const navLinks: Array<{name: string; href: string}> = [
     {name: "Home", href: "/"},
     {name: "Docs", href: "/docs"},
     {name: "Dashboard", href: "/dashboard"},
   ];
-
-  const user = true;
 
   return (
     <header className="w-full shadow-2xs fixed top-0 z-50 bg-white dark:bg-black">
@@ -46,57 +41,28 @@ export default function Header() {
                 ))}
             </nav>
             {/* Desktop CTAs */}
-            <Link href="/login">
-              <Button variant="outline">Login</Button>
-            </Link>
-            <Link href="/register">
-              <Button>Sign up</Button>
-            </Link>
+            {user ? (
+              <Button variant="outline" onClick={logout}>
+                <LogOutIcon />
+              </Button>
+            ) : (
+              <div className="flex items-center gap-2">
+                <Link href="/login">
+                  <Button variant="outline">Sign in</Button>
+                </Link>
+              </div>
+            )}
 
             {/* theme toggle */}
 
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="px-3 py-2">
-                  theme
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => setTheme("light")}>
-                  Light
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("dark")}>
-                  Dark
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("system")}>
-                  System
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <ThemeToggle />
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center gap-3">
             {/* theme toggle */}
 
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="px-3 py-2">
-                  theme
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => setTheme("light")}>
-                  Light
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("dark")}>
-                  Dark
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("system")}>
-                  System
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <ThemeToggle />
             <button
               onClick={() => setOpen(!open)}
               aria-expanded={open}
@@ -155,15 +121,24 @@ export default function Header() {
           </nav>
 
           <div className="pt-3 border-t border-white/10 flex flex-col gap-3">
-            <Link href="/login" className="px-3 py-2  rounded text-center">
-              <Button className="w-full">Login</Button>
-            </Link>
-            <Link
-              href="/register"
-              className="px-3 py-2 text-black rounded text-center"
-            >
-              <Button className="w-full">Sign up</Button>
-            </Link>
+            {user ? (
+              <div className="flex flex-col gap-3">
+                <Button variant="outline" onClick={logout} className="w-full">
+                  Sign out
+                </Button>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-3">
+                <Link href="/login">
+                  <Button variant="outline" className="w-full">
+                    Sign in
+                  </Button>
+                </Link>
+                <Link href="/register">
+                  <Button className="w-full">Sign up</Button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
