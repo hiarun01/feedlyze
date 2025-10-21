@@ -4,12 +4,6 @@ import prisma from "@/lib/db";
 import {z} from "zod";
 import bcrypt from "bcryptjs";
 
-// Get JWT secret with fallback
-const JWT_SECRET = process.env.JWT_SECRET as string;
-if (!JWT_SECRET) {
-  throw new Error("JWT_SECRET environment variable is not set");
-}
-
 // Enhanced validation schema
 const registerSchema = z.object({
   fullName: z.string().min(2).max(100),
@@ -20,6 +14,12 @@ const registerSchema = z.object({
 export async function POST(request: NextRequest) {
   const body = await request.json();
   try {
+    // Get JWT secret with validation
+    const JWT_SECRET = process.env.JWT_SECRET;
+    if (!JWT_SECRET) {
+      throw new Error("JWT_SECRET environment variable is not set");
+    }
+
     // Validate input data
     const validation = registerSchema.safeParse(body);
     if (!validation.success) {
