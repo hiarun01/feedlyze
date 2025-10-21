@@ -4,12 +4,6 @@ import prisma from "@/lib/db";
 import {z} from "zod";
 import bcrypt from "bcryptjs";
 
-// Get JWT secret with fallback
-const JWT_SECRET = process.env.JWT_SECRET as string;
-if (!JWT_SECRET) {
-  throw new Error("JWT_SECRET environment variable is not set");
-}
-
 // Validation schema for login
 const loginSchema = z.object({
   email: z.string().trim().email("Invalid email address").max(128),
@@ -18,6 +12,12 @@ const loginSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    // Get JWT secret with validation
+    const JWT_SECRET = process.env.JWT_SECRET;
+    if (!JWT_SECRET) {
+      throw new Error("JWT_SECRET environment variable is not set");
+    }
+
     const body = await request.json();
 
     // Validate input data
