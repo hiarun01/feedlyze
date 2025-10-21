@@ -9,11 +9,13 @@ const authRoutes = ["/login", "/register"];
 export async function middleware(request: NextRequest) {
   const {pathname} = request.nextUrl;
 
-  // Get the JWT secret
-  const jwtSecret = process.env.JWT_SECRET;
-  if (!jwtSecret) {
-    console.error("JWT_SECRET is not defined");
-    return NextResponse.redirect(new URL("/login", request.url));
+  // Skip middleware for static assets and API routes
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api") ||
+    pathname.includes(".")
+  ) {
+    return NextResponse.next();
   }
 
   // Get the token from cookies
@@ -27,13 +29,16 @@ export async function middleware(request: NextRequest) {
   // Check if the current path is an auth route
   const isAuthRoute = authRoutes.some((route) => pathname.startsWith(route));
 
+  // Get the JWT secret - only needed for token verification
+  const jwtSecret = process.env.JWT_SECRET;
+
   // If it's a protected route and no token, redirect to login
   if (isProtectedRoute && !token) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // If there's a token, verify it
-  if (token) {
+  // If there's a token, verify it (only if JWT_SECRET is available)
+  if (token && jwtSecret) {
     try {
       const secret = new TextEncoder().encode(jwtSecret);
       const {payload} = await jwtVerify(token, secret);
@@ -58,6 +63,12 @@ export async function middleware(request: NextRequest) {
         return response;
       }
     }
+  } else if (token && !jwtSecret) {
+    // If token exists but JWT_SECRET is missing, treat as unauthenticated
+    console.warn("JWT_SECRET not available, treating user as unauthenticated");
+    if (isProtectedRoute) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
   }
 
   return NextResponse.next();
@@ -66,13 +77,12 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Match all request paths except for the ones starting with:
+     * Match all request paths except:
      * - api (API routes)
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
-     * - public folder
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|public/).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico).*)",
   ],
 };
