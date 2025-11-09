@@ -12,7 +12,7 @@ const ActionSection = () => {
         Join Feedlyze today and start turning feedback into actionable insights!
       </p>
       <div className="flex justify-center mt-8">
-        <Link href="/register">
+        <Link href="/signin">
           <Button className="py-5 px-10 flex items-center gap-2 ">
             Create Your Account
           </Button>
