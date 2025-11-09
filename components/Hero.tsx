@@ -39,7 +39,7 @@ const Hero = () => {
 
         {/* Call-to-Action Button */}
         <div className="flex justify-center space-x-4">
-          <Link href="/register">
+          <Link href="/signin">
             <Button className=" py-5 px-10">Get Started</Button>
           </Link>
           <Link href="/docs">

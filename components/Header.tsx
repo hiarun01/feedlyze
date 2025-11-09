@@ -2,16 +2,16 @@
 
 import React, {useState} from "react";
 import Link from "next/link";
+import {useSession, signOut} from "next-auth/react";
 
 import {Button} from "./ui/button";
-import {useAuth} from "@/contexts/AuthContext";
 
 import {ThemeToggle} from "./ThemeToggle";
 import {LogOutIcon} from "lucide-react";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const {user, logout} = useAuth();
+  const {data: session} = useSession();
 
   const navLinks: Array<{name: string; href: string}> = [
     {name: "Home", href: "/"},
@@ -33,7 +33,7 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-5">
             {/* desktop nav */}
             <nav className="hidden md:flex items-center gap-8">
-              {user &&
+              {session &&
                 navLinks.map((link, i) => (
                   <Link key={i} href={link.href}>
                     {link.name}
@@ -41,13 +41,15 @@ export default function Header() {
                 ))}
             </nav>
             {/* Desktop CTAs */}
-            {user ? (
-              <Button variant="outline" onClick={logout}>
-                <LogOutIcon />
-              </Button>
+            {session ? (
+              <div className="flex items-center gap-3">
+                <Button variant="outline" onClick={() => signOut()}>
+                  Logout <LogOutIcon />
+                </Button>
+              </div>
             ) : (
               <div className="flex items-center gap-2">
-                <Link href="/login">
+                <Link href="/signin">
                   <Button variant="outline">Sign in</Button>
                 </Link>
               </div>
@@ -112,7 +114,7 @@ export default function Header() {
       >
         <div className="px-4 pt-4 pb-6 space-y-4">
           <nav className="flex flex-col gap-3">
-            {user &&
+            {session &&
               navLinks.map((link, i) => (
                 <Link key={i} href={link.href}>
                   {link.name}
@@ -121,21 +123,22 @@ export default function Header() {
           </nav>
 
           <div className="pt-3 border-t border-white/10 flex flex-col gap-3">
-            {user ? (
+            {session ? (
               <div className="flex flex-col gap-3">
-                <Button variant="outline" onClick={logout} className="w-full">
-                  Sign out
+                <Button
+                  variant="outline"
+                  onClick={() => signOut()}
+                  className="w-full"
+                >
+                  Logout <LogOutIcon />
                 </Button>
               </div>
             ) : (
               <div className="flex flex-col gap-3">
-                <Link href="/login">
+                <Link href="/signin">
                   <Button variant="outline" className="w-full">
                     Sign in
                   </Button>
-                </Link>
-                <Link href="/register">
-                  <Button className="w-full">Sign up</Button>
                 </Link>
               </div>
             )}
